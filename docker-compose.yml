@@ -1,0 +1,14 @@
+version: '3'
+services:
+  discord-ttsbot:
+    build: .
+    tty: true
+    volumes:
+    - "./data:/data"
+    environment:
+      - AWS_REGION=ap-northeast-1
+      - AWS_ACCESS_KEY_ID=[IAMユーザのアクセスキー]
+      - AWS_SECRET_ACCESS_KEY=[IAMユーザのシックレットキー]
+      - DISCORD_BOT_TOKEN=[DISCORDBOTのトークン]
+      - POLLY_VOICE_ID=Mizuki
+      - TTS_CHANNELS=[TTSの対象チャンネル]
