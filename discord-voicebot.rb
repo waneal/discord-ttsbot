@@ -1,5 +1,5 @@
 require 'discordrb'
-require 'aws-sdk'
+require 'aws-sdk-polly'
 
 TOKEN        = ENV['DISCORD_BOT_TOKEN']
 VOICE_ID     = ENV['POLLY_VOICE_ID']
