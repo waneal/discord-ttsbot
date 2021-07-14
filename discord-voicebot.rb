@@ -5,8 +5,8 @@ TOKEN        = ENV['DISCORD_BOT_TOKEN']
 VOICE_ID     = ENV['POLLY_VOICE_ID']
 TTS_CHANNELS = ENV['TTS_CHANNELS'].split(',')
 SampleRate   = '16000'
-MP3_DIR      = "/data/mp3"
-NAME_DIR     = "/data/name"
+MP3_DIR      = '/data/mp3'
+NAME_DIR     = '/data/name'
 
 bot = Discordrb::Commands::CommandBot.new token: TOKEN, prefix: '!'
 
@@ -24,7 +24,7 @@ bot.command(:connect, description: '読み上げbotを接続中の音声チャ�
   bot.voice_connect(channel)
   event << '```'
   event << "ボイスチャンネル「 #{channel.name}」に接続しました。利用後は「!destroy」でボットを切断してください"
-  event << "「!chname 名前」で読み上げてもらう名前を変更することができます"
+  event << '「!chname 名前」で読み上げてもらう名前を変更することができます'
   event << '```'
 end
 
@@ -49,12 +49,14 @@ bot.message(in: TTS_CHANNELS) do |event|
   channel   = event.channel
   server    = event.server
   voice_bot = event.voice
+  message = event.message.to_s
 
-  if !voice_bot.nil? && /^[^!]/ =~ event.message.to_s
+  if !voice_bot.nil? && /^[^!]/ =~ message
 
     # `chname` で指定された名前があれば設定
-    speaker_name = if File.exist?("#{NAME_DIR}/#{server.resolve_id}_#{event.user.resolve_id}")
-                     File.read("#{NAME_DIR}/#{server.resolve_id}_#{event.user.resolve_id}").to_s
+    name_path = "#{NAME_DIR}/#{server.resolve_id}_#{event.user.resolve_id}"
+    speaker_name = if File.exist?(name_path)
+                     File.read(name_path).to_s
                    else
                      event.user.name.to_s
                    end
@@ -65,7 +67,7 @@ bot.message(in: TTS_CHANNELS) do |event|
                               response_target: "#{MP3_DIR}/#{server.resolve_id}_#{channel.resolve_id}_speech.mp3",
                               output_format: 'mp3',
                               sample_rate: SampleRate,
-                              text: "<speak>#{speaker_name}いわく、>#{event.message}</speak>",
+                              text: "<speak>#{speaker_name}いわく、>#{message}</speak>",
                               text_type: 'ssml',
                               voice_id: VOICE_ID
                             })
