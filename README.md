@@ -1,13 +1,19 @@
 # Setup
 ## Configure docker-compose.yml
-* AWSでPollyのフルアクセス権限があるIAMユーザを作成、AccessKey/Secretを発行
-* Discordの開発者ポータルからBot用のトークンを発行、Botを利用したいチャンネルに参加させる
+* AWS で Polly のフルアクセス権限がある IAM ユーザを作成、AccessKey/Secret を発行
+* Discord の開発者ポータルから Bot 用のトークンを発行、Bot を利用したいチャンネルに参加させる
+  * Privileged Gateway Intents の Presence Intent, Server Members Intent が必要っぽい？
+  * OAuth2 ページで必要な権限の URL を作成して、BOT を参加させる(以下はたぶん必須)
+    * Scopes: bot
+    * Bot Permissions
+       * Text Permissions: Send Messages, Send TTS Messages
+       * Voice Permissions: Connect, Speak
 * 上記情報を元に, `docker-compose.yml` を修正する
   * 対象チャンネルは `- TTS_CHANNELS=#channel1,#channel2,#channel3` のように記述
 
 ## Run container
 ```
-docker-build
+docker-build .
 docker-compose up -d
 ```
 
