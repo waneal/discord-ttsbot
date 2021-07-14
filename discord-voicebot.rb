@@ -5,8 +5,8 @@ TOKEN        = ENV['DISCORD_BOT_TOKEN']
 VOICE_ID     = ENV['POLLY_VOICE_ID']
 TTS_CHANNELS = ENV['TTS_CHANNELS'].split(',')
 SampleRate   = '16000'
-MP3_DIR      = '/data/tts/mp3'
-NAME_DIR     = '/data/tts/name'
+MP3_DIR      = "/data/mp3"
+NAME_DIR     = "/data/name"
 
 bot = Discordrb::Commands::CommandBot.new token: TOKEN, prefix: '!'
 
