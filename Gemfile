@@ -4,5 +4,6 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem 'discordrb', '~>3.3.0'
-gem 'aws-sdk', '~>3.0.1'
+gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
+#gem 'discordrb'
+gem 'aws-sdk-polly'
